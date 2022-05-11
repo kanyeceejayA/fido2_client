@@ -23,8 +23,8 @@ class _MyAppState extends State<MyApp> {
       "transaction12356678"; // Should come from server
 
   String displayText = "Please sign or register to display auth results";
-  static final String rpDomain = "webauthn-server-demo.herokuapp.com";
-  static final String rpName = "Fido2Client Demo";
+  static final String rpDomain = "fido.silbaka.com";
+  static final String rpName = "Silbaka";
   Fido2Client fidoClient = Fido2Client();
 
   @override
@@ -63,6 +63,7 @@ class _MyAppState extends State<MyApp> {
     return ElevatedButton(
       child: Text('FIDO Register'),
       onPressed: () async {
+        print('Akbr Registration Button pressed');
         Map<String, dynamic> options = {
           'username': 'kkzeng',
           'rpDomain': rpDomain,
@@ -71,6 +72,8 @@ class _MyAppState extends State<MyApp> {
         };
         RegistrationResult res = await fidoClient.initiateRegistration(
             regChallenge, "kenkaizeng@gmail.com", options);
+        
+        print('Akbr we got a result from res, result is:'+res.toString());
         setState(() {
           this.keyHandle = res.keyHandle;
 

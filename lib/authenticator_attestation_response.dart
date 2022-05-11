@@ -7,13 +7,13 @@ import 'package:js/js.dart';
 @JS()
 @anonymous
 class AuthenticatorAttestationResponseJS {
-  Uint8List attestationObject;
-  Uint8List clientDataJSON;
+  Uint8List? attestationObject;
+  Uint8List? clientDataJSON;
 }
 
 class AuthenticatorAttestationResponse extends AuthenticatorResponse {
-  List<int> attestationObject;
-  List<int> clientDataJSON;
+  List<int>? attestationObject;
+  List<int>? clientDataJSON;
 
   AuthenticatorAttestationResponse({
     this.clientDataJSON,
@@ -22,7 +22,7 @@ class AuthenticatorAttestationResponse extends AuthenticatorResponse {
 
   static AuthenticatorAttestationResponse fromJs(
       AuthenticatorAttestationResponseJS js) {
-    return new AuthenticatorAttestationResponse(
+    return AuthenticatorAttestationResponse(
         attestationObject: js.attestationObject,
         clientDataJSON: js.clientDataJSON);
   }
@@ -30,9 +30,9 @@ class AuthenticatorAttestationResponse extends AuthenticatorResponse {
   static AuthenticatorAttestationResponse fromJson(Map<String, dynamic> json) {
     return AuthenticatorAttestationResponse(
       attestationObject:
-          (json['attestationObject'] as List)?.map((i) => i as int)?.toList(),
+          (json['attestationObject'] as List).map((i) => i as int).toList(),
       clientDataJSON:
-          (json['clientDataJSON'] as List)?.map((i) => i as int)?.toList(),
+          (json['clientDataJSON'] as List).map((i) => i as int).toList(),
     );
   }
 

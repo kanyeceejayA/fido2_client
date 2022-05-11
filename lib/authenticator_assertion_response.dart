@@ -8,17 +8,17 @@ import 'package:js/js.dart';
 @JS()
 @anonymous
 class AuthenticatorAssertionResponseJS {
-  Uint8List authenticatorData;
-  Uint8List clientDataJSON;
-  Uint8List signature;
-  Uint8List userHandle;
+  Uint8List? authenticatorData;
+  Uint8List? clientDataJSON;
+  Uint8List? signature;
+  Uint8List? userHandle;
 }
 
 class AuthenticatorAssertionResponse extends AuthenticatorResponse {
-  List<int> authenticatorData;
-  List<int> clientDataJSON;
-  List<int> signature;
-  List<int> userHandle;
+  List<int>? authenticatorData;
+  List<int>? clientDataJSON;
+  List<int>? signature;
+  List<int>? userHandle;
 
   AuthenticatorAssertionResponse({
     this.authenticatorData,
@@ -40,11 +40,11 @@ class AuthenticatorAssertionResponse extends AuthenticatorResponse {
   static AuthenticatorAssertionResponse fromJson(Map<String, dynamic> json) {
     return AuthenticatorAssertionResponse(
       authenticatorData:
-          (json['authenticatorData'] as List)?.map((i) => i as int)?.toList(),
+          (json['authenticatorData'] as List).map((i) => i as int).toList(),
       clientDataJSON:
-          (json['clientDataJSON'] as List)?.map((i) => i as int)?.toList(),
-      signature: (json['signature'] as List)?.map((i) => i as int)?.toList(),
-      userHandle: (json['userHandle'] as List)?.map((i) => i as int)?.toList(),
+          (json['clientDataJSON'] as List).map((i) => i as int).toList(),
+      signature: (json['signature'] as List).map((i) => i as int).toList(),
+      userHandle: (json['userHandle'] as List).map((i) => i as int).toList(),
     );
   }
 

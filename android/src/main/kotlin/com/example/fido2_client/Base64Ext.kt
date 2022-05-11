@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package mojaloop.fido2.fido2_client
+package com.example.fido2_client
 
 import android.util.Base64
 

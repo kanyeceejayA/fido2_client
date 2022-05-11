@@ -1,4 +1,4 @@
-package mojaloop.fido2.fido2_client
+package com.example.fido2_client
 
 import android.app.Activity
 import android.app.Activity.RESULT_CANCELED
@@ -6,6 +6,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.preference.PreferenceManager
 import android.util.Base64
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.NonNull;
 import com.google.android.gms.fido.Fido
@@ -19,6 +20,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.lang.Exception
 
 /** Fido2ClientPlugin */
 public class Fido2ClientPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
@@ -79,8 +81,10 @@ public class Fido2ClientPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+        Log.d("Akbr", "Method called")
         when (call.method) {
             "initiateRegistration" -> {
+                Log.d("Akbr", "Registration initiated")
                 try {
                     val challenge = call.argument<String>("challenge")!!
                     val userId = call.argument<String>("userId")!!
@@ -97,11 +101,18 @@ public class Fido2ClientPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
                     initiateRegistration(result, challenge, userId, username, rpDomain,
                         rpName, coseAlgoValue.split(",").map { it.toInt() }, credentials
                     )
+                    Log.d("Akbr", "initiation called and returned")
+                    Log.d("Akbr", "initiation called and returned")
                 } catch (e: NullPointerException) {
+                    Log.d("Akbr", "Registration Error Faced")
                     val errCode = "MISSING_ARGUMENTS"
                     val errMsg =
                         "One or more of the arguments provided are null. None of the arguments can be null!"
                     result.error(errCode, errMsg, null)
+                }catch (e: Exception){
+                    Log.d("Akbr", e.toString())
+                }catch (e: Error){
+                    Log.d("Akbr", e.toString())
                 }
             }
             "initiateSigning" -> {
@@ -160,7 +171,6 @@ public class Fido2ClientPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
                 AuthenticatorSelectionCriteria.Builder().setAttachment(Attachment.PLATFORM).build()
             )
             .build()
-
         val fidoClient = Fido.getFido2ApiClient(activity)
         val registerIntent = fidoClient.getRegisterPendingIntent(options)
         registerIntent.addOnFailureListener {
@@ -183,6 +193,7 @@ public class Fido2ClientPlugin : FlutterPlugin, MethodCallHandler, ActivityAware
                 result.error(errCode, "An error occurred", null);
             }
         }
+        Log.d("Akbr result", result.toString())
     }
 
     private fun initiateSigning(

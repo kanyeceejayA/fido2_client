@@ -6,7 +6,7 @@ import 'package:js/js.dart';
 @JS()
 @anonymous
 class AuthenticatorResponseJS {
-  String type;
+  late String type;
 }
 
 /// Can either be a AuthenticatorAssertionResponse, or
@@ -25,7 +25,7 @@ abstract class AuthenticatorResponse {
           someResponseJs as AuthenticatorAssertionResponseJS);
     }
 
-    throw new Exception(
+    throw Exception(
         'Neither attestationObject nor authenticatorData found on jsobject. Failed to decode AuthenticatorResponse');
   }
 
@@ -39,7 +39,7 @@ abstract class AuthenticatorResponse {
       return AuthenticatorAssertionResponse.fromJson(json);
     }
 
-    throw new Exception(
+    throw Exception(
         'Neither attestationObject nor authenticatorData found on json. Failed to decode JSON');
   }
 

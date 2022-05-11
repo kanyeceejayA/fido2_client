@@ -88,11 +88,16 @@ class Fido2Client {
     String userId,
     Map<String, dynamic> options,
   ) async {
-    Map<String, dynamic> args = options;
-    args.putIfAbsent('challenge', () => challenge);
-    args.putIfAbsent('userId', () => userId);
-    _channel.invokeMethod('initiateRegistration', args);
-    return _regCompleter.future;
+    try {
+      Map<String, dynamic> args = options;
+      args.putIfAbsent('challenge', () => challenge);
+      args.putIfAbsent('userId', () => userId);
+      _channel.invokeMethod('initiateRegistration', args);
+      return _regCompleter.future;
+    }catch (e) {
+      print("Akbr error is:"+e.toString());
+      rethrow;
+    }
   }
 
   /// Begins the FIDO signing process.
